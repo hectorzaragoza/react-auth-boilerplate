@@ -24,6 +24,9 @@ const authenticatedOptions = (
 const unauthenticatedOptions = (
 	<>
         <Nav.Link>
+		    <Link to='services' style={linkStyle}>Services</Link>
+        </Nav.Link>
+		<Nav.Link>
 		    <Link to='sign-up' style={linkStyle}>Sign Up</Link>
         </Nav.Link>
         <Nav.Link>
@@ -46,7 +49,7 @@ const Header = ({ user }) => (
 	<Navbar bg='primary' variant='dark' expand='md'>
 		<Navbar.Brand>
             <Link to='/' style={linkStyle}>
-                react-auth-template
+                GEL Group
             </Link>
         </Navbar.Brand>
 		<Navbar.Toggle aria-controls='basic-navbar-nav' />
