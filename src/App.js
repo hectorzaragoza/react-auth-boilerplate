@@ -14,6 +14,7 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import Services from './components/auth/Services'
 import ChangePassword from './components/auth/ChangePassword'
+import About from './components/auth/About'
 
 const App = () => {
 
@@ -79,6 +80,7 @@ const App = () => {
 						element={<SignIn msgAlert={msgAlert} setUser={setUser} />}
 					/>
 					<Route path='/services' element={<Services msgAlert={msgAlert} services={services} user={user} /> }/>
+					<Route path='/about' element={<About msgAlert={msgAlert} user={user} /> }/>
         <Route
             path='/sign-out'
             element={

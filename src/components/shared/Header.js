@@ -27,6 +27,9 @@ const unauthenticatedOptions = (
 		    <Link to='services' style={linkStyle}>Services</Link>
         </Nav.Link>
 		<Nav.Link>
+		    <Link to='about' style={linkStyle}>About</Link>
+        </Nav.Link>
+		<Nav.Link>
 		    <Link to='sign-up' style={linkStyle}>Sign Up</Link>
         </Nav.Link>
         <Nav.Link>
