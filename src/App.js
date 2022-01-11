@@ -16,6 +16,7 @@ import Services from './components/auth/Services'
 import ChangePassword from './components/auth/ChangePassword'
 import About from './components/auth/About'
 import ClientServices from './components/auth/ClientServices'
+import Checkout from './components/auth/Checkout'
 
 const App = () => {
 
@@ -46,15 +47,12 @@ const App = () => {
         })
     }
 
-	
-
-
 	console.log('user in app', user)
-  console.log('message alerts', msgAlerts)
-  const clearUser = () => {
+	console.log('message alerts', msgAlerts)
+	const clearUser = () => {
     console.log('clear user ran')
     setUser(null)
-  }
+	}
 
 	const deleteAlert = (id) => {
 		setMsgAlerts((prevState) => {
@@ -67,7 +65,7 @@ const App = () => {
 		setMsgAlerts(() => {
 			return (
 				[{ heading, message, variant, id }]
-      )
+			)
 		})
 	}
 
@@ -76,32 +74,14 @@ const App = () => {
 				<Header user={user} />
 				<Routes>
 					<Route path='/' element={<Home msgAlert={msgAlert} user={user} />} />
-					<Route
-						path='/sign-up'
-						element={<SignUp msgAlert={msgAlert} setUser={setUser} />}
-					/>
-					<Route
-						path='/sign-in'
-						element={<SignIn msgAlert={msgAlert} setUser={setUser} />}
-					/>
+					<Route path='/sign-up' element={<SignUp msgAlert={msgAlert} setUser={setUser} />}/>
+					<Route path='/sign-in' element={<SignIn msgAlert={msgAlert} setUser={setUser} />}/>
 					<Route path='/services' element={<Services msgAlert={msgAlert} services={services} user={user} /> }/>
 					<Route path='/about' element={<About msgAlert={msgAlert} user={user} /> }/>
 					<Route path='/client-services/' element={<ClientServices msgAlert={msgAlert} user={user} /> }/>
-        <Route
-            path='/sign-out'
-            element={
-            <RequireAuth user={user}>
-                <SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />
-            </RequireAuth>
-            }
-        />
-        <Route
-            path='/change-password'
-            element={
-            <RequireAuth user={user}>
-                <ChangePassword msgAlert={msgAlert} user={user} />
-            </RequireAuth>}
-        />
+					<Route path='/checkout' element={<Checkout services={services} user={user}/> }/>
+        			<Route path='/sign-out' element={<RequireAuth user={user}><SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} /></RequireAuth>}/>
+        			<Route path='/change-password' element={<RequireAuth user={user}><ChangePassword msgAlert={msgAlert} user={user} /></RequireAuth>}/>
 				</Routes>
 				{msgAlerts.map((msgAlert) => (
 					<AutoDismissAlert

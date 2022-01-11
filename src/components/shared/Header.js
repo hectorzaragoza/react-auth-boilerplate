@@ -14,6 +14,12 @@ const authenticatedOptions = (
 			</Link>
 		</Nav.Link>
 		<Nav.Link>
+			<Link to='about' style={linkStyle}>About</Link>
+        </Nav.Link>
+		<Nav.Link>
+			<Link to='services' style={linkStyle}>Services</Link>
+        </Nav.Link>
+		<Nav.Link>
 			<Link to='change-password' style={linkStyle}>
 				Change Password
 			</Link>
@@ -48,12 +54,6 @@ const alwaysOptions = (
 		<Nav.Link>
 			<Link to='/' style={linkStyle}>Home</Link>
 		</Nav.Link>
-		<Nav.Link>
-			<Link to='services' style={linkStyle}>Services</Link>
-        </Nav.Link>
-		<Nav.Link>
-			<Link to='about' style={linkStyle}>About</Link>
-        </Nav.Link>
 	</>
 )
 
