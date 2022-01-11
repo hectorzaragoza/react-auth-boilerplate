@@ -15,6 +15,7 @@ import SignOut from './components/auth/SignOut'
 import Services from './components/auth/Services'
 import ChangePassword from './components/auth/ChangePassword'
 import About from './components/auth/About'
+import ClientServices from './components/auth/ClientServices'
 
 const App = () => {
 
@@ -22,19 +23,20 @@ const App = () => {
 	const [msgAlerts, setMsgAlerts] = useState([])
 	// All services from db will be stored in services using state
     const [services, setServices] = useState('')
-
+	
 	useEffect(() => {
 		getServices()
 	}, [])
 
-	// Axios call to my Django API
+	// Axios call to my Django API to get All Services Available
     const getServices = () => {
         axios({
             method: 'GET',
             url: 'http://localhost:8000/services/'
+			
         })
         .then(res => {
-            console.log('This is the response from the db', res.data.services)
+            // console.log('This is the response from the db', res.data.services)
             res = Object.values(res.data.services)
             // set services in state
             setServices(res)
@@ -43,6 +45,9 @@ const App = () => {
             console.log('Error: ', err)
         })
     }
+
+	
+
 
 	console.log('user in app', user)
   console.log('message alerts', msgAlerts)
@@ -81,6 +86,7 @@ const App = () => {
 					/>
 					<Route path='/services' element={<Services msgAlert={msgAlert} services={services} user={user} /> }/>
 					<Route path='/about' element={<About msgAlert={msgAlert} user={user} /> }/>
+					<Route path='/client-services/' element={<ClientServices msgAlert={msgAlert} user={user} /> }/>
         <Route
             path='/sign-out'
             element={

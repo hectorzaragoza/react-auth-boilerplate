@@ -9,6 +9,11 @@ const linkStyle = {
 const authenticatedOptions = (
 	<>
 		<Nav.Link>
+			<Link to='client-services' style={linkStyle}>
+				My Services
+			</Link>
+		</Nav.Link>
+		<Nav.Link>
 			<Link to='change-password' style={linkStyle}>
 				Change Password
 			</Link>
@@ -24,16 +29,16 @@ const authenticatedOptions = (
 const unauthenticatedOptions = (
 	<>
         <Nav.Link>
-		    <Link to='services' style={linkStyle}>Services</Link>
+			<Link to='services' style={linkStyle}>Services</Link>
         </Nav.Link>
 		<Nav.Link>
-		    <Link to='about' style={linkStyle}>About</Link>
+			<Link to='about' style={linkStyle}>About</Link>
         </Nav.Link>
 		<Nav.Link>
-		    <Link to='sign-up' style={linkStyle}>Sign Up</Link>
+			<Link to='sign-up' style={linkStyle}>Sign Up</Link>
         </Nav.Link>
         <Nav.Link>
-		    <Link to='sign-in' style={linkStyle}>Sign In</Link>
+			<Link to='sign-in' style={linkStyle}>Sign In</Link>
         </Nav.Link>
 	</>
 )
@@ -41,10 +46,14 @@ const unauthenticatedOptions = (
 const alwaysOptions = (
 	<>
 		<Nav.Link>
-			<Link to='/' style={linkStyle}>
-				Home
-			</Link>
+			<Link to='/' style={linkStyle}>Home</Link>
 		</Nav.Link>
+		<Nav.Link>
+			<Link to='services' style={linkStyle}>Services</Link>
+        </Nav.Link>
+		<Nav.Link>
+			<Link to='about' style={linkStyle}>About</Link>
+        </Nav.Link>
 	</>
 )
 
