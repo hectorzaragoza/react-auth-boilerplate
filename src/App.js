@@ -79,7 +79,7 @@ const App = () => {
 					<Route path='/services' element={<Services msgAlert={msgAlert} services={services} user={user} /> }/>
 					<Route path='/about' element={<About msgAlert={msgAlert} user={user} /> }/>
 					<Route path='/client-services/' element={<ClientServices msgAlert={msgAlert} user={user} /> }/>
-					<Route path='/checkout' element={<Checkout services={services} user={user}/> }/>
+					<Route path='/checkout-services' element={<Checkout services={services} user={user}/> }/>
         			<Route path='/sign-out' element={<RequireAuth user={user}><SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} /></RequireAuth>}/>
         			<Route path='/change-password' element={<RequireAuth user={user}><ChangePassword msgAlert={msgAlert} user={user} /></RequireAuth>}/>
 				</Routes>

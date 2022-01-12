@@ -16,9 +16,8 @@ function Services(props) {
         <>
         <h1>These are all the services we offer: </h1>
         <div>{allServices}</div>
-        <a href="/checkout">Hire our services</a>
+        <a href="/checkout-services">Hire our services</a>
         </>
-       
     )
 }
 

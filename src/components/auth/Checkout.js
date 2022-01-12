@@ -3,6 +3,7 @@
 // Stripe "Cart" for checkout
 import { API_URL } from '../../config';
 import { useEffect} from 'react'
+import axios from 'axios';
 
 function Checkout(props) {
     // This is boilerplate from Stripe:
@@ -10,6 +11,7 @@ function Checkout(props) {
         // Check to see if this is a redirect back from Checkout
         const query = new URLSearchParams(window.location.search);
         console.log("I'm inside the Checkout")
+        console.log('These are my props: ', props)
     
         if (query.get("success")) {
             console.log("Order placed! You will receive an email confirmation.");
@@ -22,6 +24,27 @@ function Checkout(props) {
         }
     }, []);
 
+    const userServices = 'service 1'
+
+    const handleSubmit = (e) => {
+        axios({
+            method: 'post',
+            url: 'http://localhost:8000/checkout/',
+            data: {
+                'userServices': userServices,
+            },
+            headers: { 
+                'Authorization': `Token a131d5969cda498a7a88cc4920f25f3b37b3d549`,
+                'Cookie': 'csrftoken=sxKQX9lRFAu9qyLFtOnZXt1rjsv8sp4feiu0tn724ej83YKAuAkr6EqnXVuMgis3; sessionid=g2p32chdupzl1zvejmdt0gvwn3d0rcou'
+            }
+        })
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
     // props.services holds all of our services
     // I will need to loop through the services available and create a list
     // with checkboxes
@@ -44,10 +67,8 @@ function Checkout(props) {
     <div className="product">
         {allServices}
     </div>
-    <form action={`${API_URL}/checkout/`} method="POST">
-        <button type="submit">
-            Checkout
-        </button>
+    <form action="http://localhost:8000/checkout/" onSubmit={handleSubmit} method="POST">
+        <button value="Checkout">Checkout</button>
     </form>
     </section>
     )
