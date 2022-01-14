@@ -6,7 +6,7 @@ function Services(props) {
     const allServices = Object.values(props.services).map((s, i) => {
         return (
             <>
-            <h2>{s.name}</h2>
+            <h2 key={i}>{s.name}</h2>
             <h3>${s.price}</h3>            
             </>
         )

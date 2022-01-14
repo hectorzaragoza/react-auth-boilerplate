@@ -2,7 +2,7 @@
 // Users will use a checkbox to select which services to add to their cart which will update the 
 // Stripe "Cart" for checkout
 import { API_URL } from '../../config';
-import { useEffect} from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios';
 
 function Checkout(props) {
@@ -24,16 +24,54 @@ function Checkout(props) {
         }
     }, []);
 
-    const userServices = 'service 1'
+    // I will store user selection in this state
+    // const [checkedState, setCheckedState] = useState(new Array(props.services.length).fill(false))
+    const [userServices, setUserServices] = useState([])
 
+    // Axios Call to Django API with user selected services as payload
     const handleSubmit = (e) => {
+        const stripeProducts = [
+            {'Leadership Training':
+                    {
+                        'price': 'price_1KGlJ1HRuIv0fDSuFPIp3Frq',
+                        'quantity': 1,
+                    }
+            },
+            {'Personal Coaching':
+                    {
+                        'price': 'price_1KGlIlHRuIv0fDSuilPnZcyV',
+                        'quantity': 1,
+                    }
+            }
+            ]
+        
+        const filterObjsInArr = (arr, selection) => {
+            const filteredArray = [];
+            arr.map((obj) => {
+                const filteredObj = {};
+                for (let key in obj) {
+                if (selection.includes(key)) {
+                    filteredObj[key] = obj[key];
+                };
+                };
+                filteredArray.push(filteredObj);
+            })
+            return filteredArray;
+            }
+
+        const newArr = filterObjsInArr(stripeProducts, userServices)
+
+        const newNewArr = JSON.stringify(newArr)
+        console.log('Did this work? ', JSON.stringify(newArr))
+
         axios({
             method: 'post',
             url: 'http://localhost:8000/checkout/',
             data: {
-                'userServices': userServices,
+                'userServices': newNewArr,
             },
-            headers: { 
+            headers: {
+                'Content-Type': 'application/json',
                 'Authorization': `Token a131d5969cda498a7a88cc4920f25f3b37b3d549`,
                 'Cookie': 'csrftoken=sxKQX9lRFAu9qyLFtOnZXt1rjsv8sp4feiu0tn724ej83YKAuAkr6EqnXVuMgis3; sessionid=g2p32chdupzl1zvejmdt0gvwn3d0rcou'
             }
@@ -48,16 +86,29 @@ function Checkout(props) {
     // props.services holds all of our services
     // I will need to loop through the services available and create a list
     // with checkboxes
-
     // The checkbox will set the state that will be used to update the cart
-    // of desired items that will then be shipped to Stripe API
+    // of desired items that will then be routed to Stripe API Checkout Session
 
-    const allServices = Object.values(props.services).map((s, i) => {
+    // Handle Check Box; The desired data is in e.target.value
+    const handleChange = (e) => {
+        console.log('THis is the checkox clicked: ', e.target.value)
+        const service = e.target.value
+        const serviceArr = userServices
+        if (e.target.checked) {
+            serviceArr.push(service)
+        } else if (serviceArr.includes(service)) {
+            serviceArr.splice(serviceArr.indexOf(service), 1)
+        }
+        setUserServices(serviceArr)
+        console.log('These are user services on change: ', userServices)
+    }
+
+    const allServices = Object.values(props.services).map((s, index) => {
         return (
             <>
-            <h2>{s.name}</h2>
+            <h2 key={index}>{s.name}</h2>
             <h3>${s.price}</h3>
-            <input type="checkbox"></input>            
+            <label><input type="checkbox" onClick={handleChange} value={s.name} name={s.name}/>Checkbox</label>            
             </>
         )
     })
